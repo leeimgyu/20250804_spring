@@ -8,6 +8,6 @@ import org.springframework.data.domain.Pageable;
 public interface SearchRepository {
   Movie searchTest();
 
-//  Page<Object[]> searchPage(String type, String keyword, Pageable pageable);
+  //  Page<Object[]> searchPage(String type, String keyword, Pageable pageable);
   Page<Object[]> searchPage(String type, String keyword, Pageable pageable);
 }
