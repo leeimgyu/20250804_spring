@@ -9,7 +9,6 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @ToString(exclude = {"journal", "members"})
-
 public class Comments extends BasicEntity{
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +22,6 @@ public class Comments extends BasicEntity{
   private Long likes; // 별점
   private String text; // 한줄평
 
-  public void setLikes(Long likes) {this.likes = likes;}
-  public void setText(String text) {this.text = text;}
+  public void changeLikes(Long likes) {this.likes = likes;}
+  public void changeText(String text) {this.text = text;}
 }
