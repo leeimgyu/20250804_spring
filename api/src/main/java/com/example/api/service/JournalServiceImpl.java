@@ -44,6 +44,7 @@ public class JournalServiceImpl implements JournalService {
     Function<Object[], JournalDTO> fn = new Function<Object[], JournalDTO>() {
       @Override
       public JournalDTO apply(Object[] objects) {
+        log.info(">>>>"+Arrays.toString(objects));
         return entityToDTO(
             (Journal) objects[0],
             (List<Photos>) (Arrays.asList((Photos)objects[1])),
@@ -93,10 +94,8 @@ public class JournalServiceImpl implements JournalService {
       journal.changeContent(journalDTO.getContent());
       journalRepository.save(journal);
 
-      List<Photos> newPhotosList =
-          (List<Photos>) entityMap.get("photosList");
-      List<Photos> oldPhotosList =
-          photosRepository.findByJno(journal.getJno());
+      List<Photos> newPhotosList = (List<Photos>) entityMap.get("photosList");//from client(new)
+      List<Photos> oldPhotosList = photosRepository.findByJno(journal.getJno());//from db(old)
 
       if (newPhotosList == null || newPhotosList.size() == 0) {
         // 수정창에서 이미지 모두를 지웠을 때
@@ -145,6 +144,7 @@ public class JournalServiceImpl implements JournalService {
       log.error(e.getMessage());
     }
   }
+
   @Transactional
   @Override
   public List<String> removeWithCommentsAndPhotos(Long jno) {

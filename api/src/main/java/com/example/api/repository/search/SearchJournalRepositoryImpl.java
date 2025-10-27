@@ -20,10 +20,11 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Log4j2
-public class SearchJournalRepositoryImpl extends QuerydslRepositorySupport implements SearchJournalRepository{
+public class SearchJournalRepositoryImpl extends QuerydslRepositorySupport implements SearchJournalRepository {
   public SearchJournalRepositoryImpl() {
     super(Journal.class);
   }
+
   @Override
   public Page<Object[]> searchPage(String type, String keyword, Pageable pageable) {
     log.info("Search Page....");
@@ -42,7 +43,7 @@ public class SearchJournalRepositoryImpl extends QuerydslRepositorySupport imple
 
     // 3) Tuple 생성:조인한 객체와 select를 활용해서 필요한 데이터를 tuple로 생성
     JPQLQuery<Tuple> tuple = jpqlQuery.select(
-        qJournal, qPhotos, qComments.likes.sum().coalesce(0L) ,qComments.count()
+        qJournal, qPhotos, qMembers, qComments.likes.sum().coalesce(0L), qComments.count()
     );
 
     // 4) 조건절 검색을 위한 객체 생성
@@ -90,7 +91,7 @@ public class SearchJournalRepositoryImpl extends QuerydslRepositorySupport imple
 
     // 12) tuple의 검색 결과 개수
     long count = tuple.fetchCount();
-    log.info("총 개수 출력"+count);
+    log.info("총 개수 출력" + count);
 
     // 13) Page 객체를 PageImpl 객체로  변환
     return new PageImpl<Object[]>(result.stream().map(new Function<Tuple, Object[]>() {

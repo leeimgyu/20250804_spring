@@ -51,6 +51,10 @@ public class ApiLoginFilter extends AbstractAuthenticationProcessingFilter {
       response.setContentType("text/plain");
       response.getOutputStream().write(token.getBytes());
       log.info("generated token: " + token);
-    } catch (Exception e) {e.printStackTrace();}
+    } catch (Exception e) {
+      e.printStackTrace();
+      response.setContentType("text/plain");
+      response.getOutputStream().write(e.getMessage().getBytes());
+    }
   }
 }

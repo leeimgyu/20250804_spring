@@ -9,7 +9,6 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @ToString(exclude = "journal")
-
 public class Photos extends BasicEntity{
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

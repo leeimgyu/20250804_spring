@@ -9,7 +9,6 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @ToString(exclude = {"members"})
-
 public class Journal extends BasicEntity{
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

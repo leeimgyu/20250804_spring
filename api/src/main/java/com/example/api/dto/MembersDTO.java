@@ -13,7 +13,6 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class MembersDTO {
   private Long mid;
   private String email;
@@ -22,7 +21,6 @@ public class MembersDTO {
   private String name;
   private String mobile;
   private boolean fromSocial;
-
   @Builder.Default
   private Set<String> roleSet = new HashSet<>();
   private LocalDateTime regDate;

@@ -43,7 +43,7 @@ public class ApiCheckFilter extends OncePerRequestFilter {
         check = true; break;
       }
     }
-    log.info("check >>> " + check);
+    log.info("checkAuthHeader(request) >>> " + checkAuthHeader(request));
     if(check) { // 주소가 맞을 경우
       if (checkAuthHeader(request)) { // 토큰을 가질 경우
         filterChain.doFilter(request, response); // 토큰이 있기 때문에 그 다음 주소로 넘어감.
@@ -79,6 +79,7 @@ public class ApiCheckFilter extends OncePerRequestFilter {
         String email = jwtUtil.validateAndExtract(authHeader.substring(7));
         log.info("Validate result: " + email);
         checkResult = email.length() > 0;
+        log.info("checkResult>>"+checkResult);
       } catch (Exception e) {
         throw new RuntimeException(e);
       }

@@ -20,7 +20,11 @@ public class MembersServiceImpl implements MembersService {
   @Override
   public MembersDTO getMembers(Long mid) {
     Optional<Members> result = membersRepository.findById(mid);
-    if (result.isPresent()) return entityToDTO(result.get());
+    if (result.isPresent()) {
+      Members members = result.get();
+      System.out.println(">>>" + members);
+      return entityToDTO(members);
+    }
     return null;
   }
 

@@ -78,6 +78,7 @@ public interface JournalService {
         return photosDTO;
       }).collect(Collectors.toList());
     }
+
     journalDTO.setPhotosDTOList(photosDTOList);
     journalDTO.setLikes(likes);
     journalDTO.setCommentsCnt(commentsCnt);

@@ -17,7 +17,6 @@ import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 @RestController
 @Log4j2
@@ -35,7 +34,7 @@ public class JournalController {
   }
 
   @GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<Map<String, Object>> list(PageRequestDTO pageRequestDTO){
+  public ResponseEntity<Map<String, Object>> list(PageRequestDTO pageRequestDTO) {
     Map<String, Object> result = new HashMap<>();
     result.put("pageResultDTO", journalService.getList(pageRequestDTO));
     result.put("pageRequestDTO", pageRequestDTO);
@@ -61,7 +60,7 @@ public class JournalController {
   public ResponseEntity<Map<String, String>> modify(@RequestBody JournalDTO journalDTO) {
     journalService.modify(journalDTO);
     Map<String, String> result = new HashMap<>();
-    result.put("msg", journalDTO.getJno() + "수정");
+    result.put("msg", journalDTO.getJno() + " 수정");
     result.put("jno", journalDTO.getJno() + "");
     return new ResponseEntity<>(result, HttpStatus.OK);
   }
@@ -73,24 +72,24 @@ public class JournalController {
     Map<String, String> result = new HashMap<>();
     List<String> photoList = journalService.removeWithCommentsAndPhotos(jno);
     photoList.forEach(fileName -> {
-      try {
+      try{
         String srcFileName = URLDecoder.decode(fileName, "UTF-8");
         File file = new File(uploadPath + File.separator + srcFileName);
         file.delete();
-        File thumb = new File(file.getParent(), "s_"+file.getName());
+        File thumb = new File(file.getParent(), "s_" + file.getName());
         thumb.delete();
       } catch (UnsupportedEncodingException e) {
-        log.info("remove file:" + e.getMessage());
+        log.info("remove file: " + e.getMessage());
       }
     });
-    if (journalService.getList(pageRequestDTO).getDtoList().size() == 0 && pageRequestDTO.getPage() !=1) {
-      pageRequestDTO.setPage(pageRequestDTO.getPage()-1);
+    if (journalService.getList(pageRequestDTO).getDtoList().size() == 0 && pageRequestDTO.getPage() != 1) {
+      pageRequestDTO.setPage(pageRequestDTO.getPage() - 1);
     }
     typeKeywordInit(pageRequestDTO);
-    result.put("msg",jno + "삭제");
-    result.put("page",pageRequestDTO.getPage() + "");
-    result.put("type",pageRequestDTO.getType() + "");
-    result.put("keyword",pageRequestDTO.getKeyword() + "");
-    return new ResponseEntity<>(result,HttpStatus.OK);
+    result.put("msg", jno + " 삭제");
+    result.put("page", pageRequestDTO.getPage() + "");
+    result.put("type", pageRequestDTO.getType() + "");
+    result.put("keyword", pageRequestDTO.getKeyword() + "");
+    return new ResponseEntity<>(result, HttpStatus.OK);
   }
 }

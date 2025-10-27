@@ -15,10 +15,11 @@ public interface CommentsRepository extends JpaRepository<Comments, Long> {
   List<Comments> findByJournal(Journal journal);
 
   @Modifying
-  @Query("delete from Comments c where c.members = :members")
+  @Query("delete from Comments c where c.members = :members ")
   void deleteByMembers(Members members);
 
   @Modifying
   @Query("delete from Comments c where c.journal.jno = :jno ")
   void deleteByJno(Long jno);
+
 }
