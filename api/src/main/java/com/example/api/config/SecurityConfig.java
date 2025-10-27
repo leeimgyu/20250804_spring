@@ -39,7 +39,7 @@ public class SecurityConfig {
             // anyRequest().permitAll()
 
             // 2) 회원가입등은 인증 상관 없이 수용함으로, 나중에 CORS 적용하여 처리
-                requestMatchers(AUTH_WHITELIST).permitAll()
+             requestMatchers(AUTH_WHITELIST).permitAll()
 
             // 3) 조건부 수용:: 주소는 열어 줬지만, 토큰으로 체크
             .requestMatchers(AUTH_CHECKLIST).permitAll()
